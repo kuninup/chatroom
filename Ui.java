@@ -24,10 +24,13 @@ import javax.swing.JTextField;
 import com.github.sarxos.webcam.Webcam;
 import com.github.sarxos.webcam.WebcamResolution;
 
+import Chess.Chess;
+
 public class Ui extends JFrame implements config{
 	public static BufferedImage image=new BufferedImage(frame_width,frame_width,BufferedImage.TYPE_INT_RGB);
 	public static JTextField text=new JTextField();
 	public static int flag=0;
+	public static int chess_color=0;
 	public static String face="¿¬Ìå";
 	public static int style=Font.PLAIN;
 	public static int size=1;
@@ -79,6 +82,16 @@ public class Ui extends JFrame implements config{
 		});
 		jf.add(send_button);
 		
+		//ÓÎÏ·
+		JButton game_button=new JButton("game");
+		game_button.setBounds(320, 660, 100,40);
+		game_button.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {	
+				Chess c=new Chess();
+				c.fengUI();
+			}	          
+		});
+		jf.add(game_button);
 		//ÑÕÉ«
 		JButton text_color_button=new JButton();
 		text_color_button.setBackground(Color.black);

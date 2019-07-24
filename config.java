@@ -18,4 +18,5 @@ public interface config {
     public int Receiver_duan=13000;
     public String Send_socket="192.168.31.123";
     public String local_socket="192.168.31.61";
+
 }
