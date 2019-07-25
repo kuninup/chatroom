@@ -13,10 +13,11 @@ import java.net.SocketException;
 import javax.imageio.ImageIO;
 import javax.swing.JTextField;
 
-public class Send extends Thread implements config{
+public class DataSender extends Thread implements Config{
  
 		@SuppressWarnings("resource")
 		public JTextField field;
+		@SuppressWarnings("resource")
 		public void run() {
 	    	SocketAddress localAddr = new InetSocketAddress(local_socket,local_null_duan); 
 			DatagramSocket dSender = null;//2.创建发送的Socket对象
@@ -27,26 +28,30 @@ public class Send extends Thread implements config{
 			}  
 			while(true){        
 				byte buffer[] = new byte[40000];
-				if(Ui.image==null)continue;
-				if(Ui.flag==2) {
+				if(MainUI.image==null)continue;
+				if(MainUI.flag==2) {
 					ByteArrayOutputStream bos = new ByteArrayOutputStream();
 					bos.write(2);
-					bos.write(field.getText().getBytes());
+					try {
+						bos.write(field.getText().getBytes());
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
 					buffer = bos.toByteArray();
-					Ui.flag=1;
+					MainUI.flag=1;
 				}
-				else if(Ui.flag==3) {
+				else if(MainUI.flag==3) {
 					ByteArrayOutputStream bos = new ByteArrayOutputStream();
 					bos.write(3);
 				}
-				else if(Ui.flag==4) {
+				else if(MainUI.flag==4) {
 					buffer[0]=4;
-					buffer[1]=getrow();
-					buffer[2]=getcolumn();
-					Ui.flag=1;
+					//buffer[1]=getrow();
+					//buffer[2]=getcolumn();
+					MainUI.flag=1;
 				}
 				else {
-					buffer = To_byte(Ui.image);
+					buffer = To_byte(MainUI.image);
 				}								
      			SocketAddress destAdd = new InetSocketAddress(Send_socket,Receiver_duan); //发送数据的目标地址和端口     			
 				DatagramPacket dp = new DatagramPacket(buffer, buffer.length, destAdd); //创建要发送的数据包,指定内容,指定目标地址 

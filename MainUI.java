@@ -26,10 +26,11 @@ import com.github.sarxos.webcam.WebcamResolution;
 
 import Chess.Chess;
 
-public class Ui extends JFrame implements config{
+public class MainUI extends JFrame implements Config{
 	public static BufferedImage image=new BufferedImage(frame_width,frame_width,BufferedImage.TYPE_INT_RGB);
 	public static JTextField text=new JTextField();
 	public static int flag=0;
+	public static String path="";
 	public static int chess_color=0;
 	public static String face="楷体";
 	public static int style=Font.PLAIN;
@@ -37,7 +38,7 @@ public class Ui extends JFrame implements config{
 	public static Webcam webcam;
     public static void main(String[] args) {
     	    
-	        Ui mUI=new Ui();
+    	    MainUI mUI=new MainUI();
 	        mUI.open();
 	        mUI.init();
 	}
@@ -60,7 +61,7 @@ public class Ui extends JFrame implements config{
 		js_receive.setBounds(image_fixed_x, 350, 200, 100);
 		jf.add(js_receive);
 		//文本输入区
-		text.setBounds(20, 700, config.text_width, config.text_height);
+		text.setBounds(20, 700,text_width,text_height);
 		jf.add(text);
 		//文本显示区
 		JScrollPane scrollPane_1 = new JScrollPane();
@@ -72,6 +73,7 @@ public class Ui extends JFrame implements config{
         textArea.setLineWrap(true);
         scrollPane_1.setViewportView(textArea);
 
+        
 		//按钮
 		JButton send_button=new JButton("Send");
 		send_button.setBounds(450, 700, send_button_width, send_button_height);
@@ -82,6 +84,16 @@ public class Ui extends JFrame implements config{
 		});
 		jf.add(send_button);
 		
+		//文件
+		JButton file_button=new JButton("FileSend");
+		file_button.setBounds(220,660, 100, 40);
+		file_button.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				Filechoose file=new Filechoose();
+				file.choose();
+			}	          
+		});
+		jf.add(file_button);
 		//游戏
 		JButton game_button=new JButton("game");
 		game_button.setBounds(320, 660, 100,40);
@@ -155,11 +167,11 @@ public class Ui extends JFrame implements config{
 		
 		Drawself mWeb=new Drawself(jf.getGraphics());
 		mWeb.start();
-		Receiv r=new Receiv(jf.getGraphics());
+		DataHandle r=new DataHandle(jf.getGraphics());
 		r.start();
-		Send s=new Send();
+		DataSender s=new DataSender();
 		s.start();
-		Record record=new Record(textArea,text);
+		TextShow record=new TextShow(textArea,text);
 		record.start();
 		
 		

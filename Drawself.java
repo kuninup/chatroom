@@ -6,7 +6,7 @@ import java.awt.image.BufferedImage;
 import com.github.sarxos.webcam.Webcam;
 import com.github.sarxos.webcam.WebcamResolution;
 
-public class Drawself extends Thread implements config{
+public class Drawself extends Thread implements Config{
 
 	public Graphics g;
 
@@ -21,7 +21,7 @@ public class Drawself extends Thread implements config{
 	    webcam.open();
 		while(true) {
 			BufferedImage image=webcam.getImage();
-			Ui.image=image;
+			MainUI.image=image;
 			g.drawImage(image,image_fixed_x,frame_height-20-iamge_precious_height,iamge_precious_width,iamge_precious_height,null);
 			try {
 				Thread.sleep(10);

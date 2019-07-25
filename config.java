@@ -1,6 +1,6 @@
 package CommuV3;
 
-public interface config {
+public interface Config {
 
 	public int frame_width=1000;
 	public int frame_height=800;

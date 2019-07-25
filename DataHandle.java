@@ -25,12 +25,13 @@ import org.omg.CORBA.portable.OutputStream;
 
 import Chess.Chess;
 
-public class Receiv extends Thread implements config{     
+
+public class DataHandle extends Thread implements Config{     
 	    public Graphics g;
 	    public JTextArea area;
 	    BufferedImage buff=null;
 	    
-		public Receiv(Graphics g) {
+		public DataHandle(Graphics g) {
 			super();
 			this.g = g;
 		}
